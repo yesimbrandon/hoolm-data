@@ -1,0 +1,16 @@
+{
+	"targets": [
+		{
+			"name": "Tracker app (Flutter)",
+			"projectDir": "../heroes_of_overleague_machine",
+			"dataDir": "assets/data",
+			"files": ["characters.json", "glossary.json", "rules.json"]
+		},
+		{
+			"name": "War Table (web game)",
+			"projectDir": "../hoolm-war-table",
+			"dataDir": "public/data",
+			"files": ["characters.json", "glossary.json", "rules.json"]
+		}
+	]
+}

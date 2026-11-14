@@ -1,0 +1,11 @@
+{
+  "name": "hoolm-data",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Canonical game data for Heroes of Overleague Machine (characters, keywords, rules).",
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync.mjs",
+    "sync:dry": "node scripts/sync.mjs --dry-run"
+  }
+}
