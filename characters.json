@@ -1498,13 +1498,13 @@
 					"name": "Scorched Earth",
 					"type": "Static",
 					"rollRange": "3-4",
-					"value": "Remove all non hero obstructions within 10 inches"
+					"value": "Remove all non hero obstructions within 12 inches"
 				},
 				{
 					"name": "Covered in ashe",
 					"type": "Static",
 					"rollRange": "5-6",
-					"value": "Models within 10 inches gain concealment"
+					"value": "Models within 12 inches gain concealment"
 				}
 			]
 		},
