@@ -1,69 +1,43 @@
-# hoolm-data
+# HOOLM Data (Master Game Data Folder)
 
-The single source of truth for **Heroes of Overleague Machine** game data.
+This folder holds the **master copies** of all characters, keywords, and rules for **Heroes of Overleague Machine**.
 
-| File | Root key | Contents |
-| --- | --- | --- |
-| `characters.json` | `characters` | Heroes & titans, their stats, thresholds and abilities |
-| `glossary.json` | `glossary` | Keywords (`[Fear]`, `[Pierce]`, ...) |
-| `rules.json` | `rules` | Rulebook sections (nested) |
+> **Important:** You do **not** need to open or edit the files in this folder by hand! Instead, use the **HOOLM Editor** (`hoolm-editor`), which edits these files for you safely with buttons and forms.
 
-Edit these with **hoolm-editor** (`../hoolm-editor`). Avoid hand-editing unless needed.
+---
 
-## Pushing data to the apps
+## How Everything Fits Together
 
+You have 4 folders in `C:\Users\brand\.gemini\antigravity-ide\scratch`:
+
+1. **`hoolm-editor`** — The visual website where you add/edit characters, keywords, and rules.
+2. **`hoolm-data` (This folder)** — Where the editor saves your master data files.
+3. **`heroes_of_overleague_machine`** — The Tracker & Codex App (for tracking matches, health, rounds, and building rosters).
+4. **`hoolm-war-table`** — The virtual tabletop web game (where you move models on a digital map and roll dice).
+
+When you click **"Sync to apps"** inside the HOOLM Editor, it copies the master files from this folder into **both** the Tracker App and the War Table automatically.
+
+---
+
+## What Files Are in Here?
+
+- **`characters.json`** — All Heroes and Titans, their stats, thresholds, and abilities.
+- **`glossary.json`** — All game keywords (like `[Fear]`, `[Pierce]`, `[Stun]`) and their definitions.
+- **`rules.json`** — The game rulebook sections.
+- **`.backups/`** — Every time you click **Save** in the editor, a backup copy of your previous file is saved here with the date and time, so you never lose work by accident.
+
+---
+
+## Manual Sync (Only if you aren't using the "Sync to apps" button)
+
+Normally, you just click the **"Sync to apps"** button at the top-right of the **HOOLM Editor**.
+
+If you ever want to copy the files into the apps using PowerShell instead:
+
+1. Open **PowerShell**.
+2. Copy and paste these two lines and press **Enter**:
+
+```powershell
+cd C:\Users\brand\.gemini\antigravity-ide\scratch\hoolm-data
+npm run sync
 ```
-npm run sync        # copy files into every project in sync.config.json
-npm run sync:dry    # preview
-```
-
-Targets (see `sync.config.json`):
-
-- Tracker app (Flutter) → `heroes_of_overleague_machine/assets/data/`
-- War Table (web) → `hoolm-war-table/public/data/`
-
-Then commit in each app repo as usual.
-
-## Schemas
-
-### Character
-
-```jsonc
-{
-  "name": "Monsieur Le Beau",          // required, unique
-  "class": ["DPS"],                    // DPS | Tank | Support | TITAN
-  "attributes": ["Fearless"],
-  "base": "50mm",
-  "linkedCharacter": "Bravo 1",        // optional, name of another character
-  "isTransformOnly": false,            // optional; hidden from drafting
-  "threshold": { "name": "...", "value": "...", "type": "regulated" }, // optional; type: regulated | restricted | repeatable (omit = auto-detect)
-  "speed": 7,                          // number, or text like "Special*"
-  "defense": 13, "health": 20, "armor": 0, "magicResist": 0,
-  "actionPoints": 7, "recovery": 4,
-  "slayingReward": "...",              // optional
-  "abilities": [
-    { "name": "Boutonnière", "type": "Attack", "range": "B8", "damage": 7,
-      "cost": "1 AP", "rollRange": "...", "value": "Crit [Fear]" }
-  ]
-}
-```
-
-### Keyword
-
-```json
-{ "term": "Fear", "description": "-1 ATK", "power": 2 }
-```
-
-`power` is optional. Text anywhere can reference a keyword with square brackets: `[Fear]`, `[Explode 2]`.
-
-### Rule section
-
-```json
-{ "id": "core-concepts", "title": "Core Concepts", "body": "Text with **bold**, - lists and [Keywords].", "sections": [] }
-```
-
-`sections` nests sub-sections to any depth. `id` is unique across the whole rulebook.
-
-## Backups
-
-Every save from the editor copies the previous file into `.backups/` (git-ignored).
